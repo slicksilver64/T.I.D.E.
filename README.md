@@ -28,6 +28,10 @@ Represents a game object displayed as a character on screen.
 - `color_pair`: the color scheme to use
 - `move(dx, dy)`: changes position
 - `draw(screen)`: renders the sprite to the screen
+  
+```python
+player = Sprite('@', 10, 5, color_pair=1, name="Player")
+```
 
 ### `Game`
 Handles the game loop and manages sprites.
