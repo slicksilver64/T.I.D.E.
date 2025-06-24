@@ -67,18 +67,19 @@ class PaintApp(Game):
         # --- Draw Instructions ---
         instructions = (
             "[ARROWS] Move  [SPACE] Paint  [E] Erase  [C] Clear  "
-            "[1–5] Color  [S] Save  \n[L] Load  [Q] Quit"
+            "[1–5] Color  [S] Save"
         )
         screen.addstr(0, 0, instructions[:curses.COLS - 1])
+        screen.addstr(1, 0, "[L] Load  [Q] Quit")
 
-        # --- Draw Painted Grid ---
+        # --- Draw Painted Grid with background color ---
         for (x, y), color in self.grid.items():
             try:
-                screen.attron(curses.color_pair(color))
-                screen.addstr(y, x, "█")
-                screen.attroff(curses.color_pair(color))
+                screen.addstr(y, x, " ", curses.color_pair(color))
             except curses.error:
+                print("error")
                 pass
+
 
         # --- Draw Cursor ---
         self.cursor.draw(screen)
@@ -108,11 +109,11 @@ class PaintApp(Game):
 
 def main(stdscr):
     curses.start_color()
-    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
-    curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
-    curses.init_pair(4, curses.COLOR_YELLOW, curses.COLOR_BLACK)
-    curses.init_pair(5, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_RED)
+    curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_CYAN)
+    curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_GREEN)
+    curses.init_pair(4, curses.COLOR_YELLOW, curses.COLOR_YELLOW)
+    curses.init_pair(5, curses.COLOR_WHITE, curses.COLOR_WHITE)
 
     game = PaintApp()
     game.stdscr = stdscr
